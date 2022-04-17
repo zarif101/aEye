@@ -11,6 +11,21 @@
 <center>
 <h2> According to the test our model ran, the result is as follows:</h1>
 <h1 class="text-danger"> The patient has {{data.prediction}}  </h1>
+
+<form style = "margin-left: 50px; margin-right: 50px; margin-top:50px" action="notification" method="POST" enctype="multipart/form-data">
+  <h3> If you'd like, you may use the below section to send a message to the patient from whom the scan was taken</h3>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Patient Phone Number</label>
+    <input type="tel" class="form-control" name="phone-number" placeholder="Enter phone number 10 digits here, ex: 1234567899 ">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Enter the message to send to the patient</label>
+    <textarea class="form-control" name="text-message" rows="3"></textarea>
+  </div>
+  <button method="POST" type="submit" formaction="notification" type="button" class="btn btn-primary">Send Text Message (will be sent back to homepage)</button>
+</form>
+
+
 <form action="home" style = "margin-top: 50px">
   <button type="submit" formaction="home" type="button" class="btn btn-secondary">Back to Homepage </button>
 </form>

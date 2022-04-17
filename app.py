@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, url_for
 from flask import render_template
 import requests
 from flask import request
@@ -6,6 +6,8 @@ from werkzeug.utils import secure_filename
 from PIL import Image
 import numpy as np
 from utils import generate_prediction
+import os
+from twilio.rest import Client
 
 app = Flask(__name__)
 
@@ -73,3 +75,19 @@ def upload_file_myopia():
     }
         return render_template('present-prediction.html',data=data)
     return "invalid!"
+
+@app.route('/notification', methods = ['POST'])
+def sent_notification():
+    message = str(request.form.get('text-message'))
+    number = str(request.form.get('phone-number'))
+    account_sid = "AC5bbbc2ecf3d97ae5b7afc57eceb10ddc"
+    auth_token = "0cbc62b928a2f384ce077fd955eeeb6d"
+    client = Client(account_sid, auth_token)
+
+    message = client.messages.create(
+                                  body=str(message),
+                                  from_='+19705919814',
+                                  to='+1'+str(number)
+                              )
+
+    return render_template('home.html')
